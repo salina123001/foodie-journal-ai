@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foodie Journal AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=ZCOOL+KuaiLe&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'journal-bg': '#FDFBF7',
+              'journal-paper': '#FFFDF5',
+              'ink-dark': '#2F4F4F', // Deep Ink Green/Grey for High Contrast
+              'warm-brown': '#9C6644',
+              'warm-yellow': '#F4D35E',
+              'accent-green': '#556B2F',
+              'tape-red': '#D87D4A',
+              'tape-teal': '#8DA399',
+              'stamp-red': '#C62828',
+            },
+            fontFamily: {
+              'sans': ['"Zen Maru Gothic"', 'sans-serif'],
+              'hand-cn': ['"Hachi Maru Pop"', '"Zen Maru Gothic"', 'cursive'],
+              'bubbly-cn': ['"ZCOOL KuaiLe"', 'cursive'],
+            },
+            backgroundImage: {
+              'grid-pattern': "radial-gradient(#D7CCC8 1px, transparent 1px)",
+              'lined-paper': "repeating-linear-gradient(transparent, transparent 23px, #E0E0E0 24px)",
+            },
+            rotate: {
+              '1': '1deg',
+              '2': '2deg',
+              '3': '3deg',
+              '-1': '-1deg',
+              '-2': '-2deg',
+              '-3': '-3deg',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #FDFBF7;
+      }
+      
+      /* Realistic Paper Texture Overlay */
+      .texture-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 50;
+        opacity: 0.6;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
+        mix-blend-mode: overlay;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #D1D5DB;
+        border-radius: 4px;
+      }
+
+      /* Torn Paper Edge Mask */
+      .mask-torn-top {
+        -webkit-mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 20 L0 10 Q 5 15, 10 10 T 20 10 T 30 10 T 40 10 T 50 10 T 60 10 T 70 10 T 80 10 T 90 10 T 100 10 L 100 20 Z" fill="black"/></svg>');
+        mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 20 L0 10 Q 5 15, 10 10 T 20 10 T 30 10 T 40 10 T 50 10 T 60 10 T 70 10 T 80 10 T 90 10 T 100 10 L 100 20 Z" fill="black"/></svg>');
+      }
+
+      /* Rough Edge using clip-path for a torn paper look */
+      .clip-torn-paper {
+        clip-path: polygon(
+          0% 5%, 5% 0%, 15% 5%, 25% 0%, 35% 4%, 45% 0%, 55% 5%, 65% 0%, 75% 4%, 85% 0%, 95% 5%, 100% 0%, 
+          100% 100%, 0% 100%
+        );
+      }
+      
+      .clip-photo-frame {
+        clip-path: polygon(
+          2% 2%, 98% 1%, 100% 98%, 1% 99%
+        );
+      }
+
+      /* Sticker White Border Effect */
+      .sticker-border {
+        filter: drop-shadow(0px 2px 0px rgba(0,0,0,0.1));
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "@heroicons/react/": "https://aistudiocdn.com/@heroicons/react@^2.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

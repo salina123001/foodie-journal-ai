@@ -98,7 +98,7 @@ const RECIPE_SCHEMA = {
 
 export const generateRecipePlan = async (topic: string): Promise<RecipePlan> => {
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
     const today = new Date().toLocaleDateString('zh-TW', { month: '2-digit', day: '2-digit' });
 
     const response = await ai.models.generateContent({
@@ -130,7 +130,7 @@ export const generateJournalImage = async (prompt: string, type: 'cover' | 'step
 
   for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
       let stylePrompt = "";
       
       if (type === 'cover') {

@@ -107,7 +107,7 @@ const LoadingOverlay: React.FC<{ status: GenerationStatus, progressText: string 
 
 // --- Main App Component ---
 const App: React.FC = () => {
-  const [hasApiKey, setHasApiKey] = useState(false);
+  const [hasApiKey, setHasApiKey] = useState(true);
   const [topic, setTopic] = useState('');
   const [status, setStatus] = useState<GenerationStatus>(GenerationStatus.IDLE);
   const [progressText, setProgressText] = useState('');
@@ -131,26 +131,7 @@ const App: React.FC = () => {
 
   const SIGNATURE = "Designed by 尹甄的生活美學";
 
-  useEffect(() => {
-    const checkKey = async () => {
-      if ((window as any).aistudio && await (window as any).aistudio.hasSelectedApiKey()) {
-        setHasApiKey(true);
-      }
-    };
-    checkKey();
-  }, []);
 
-  const handleConnectApiKey = async () => {
-    if ((window as any).aistudio) {
-      try {
-        await (window as any).aistudio.openSelectKey();
-        setHasApiKey(true);
-      } catch (e) {
-        console.error("Failed to select key", e);
-        setError("連結失敗，請再試一次");
-      }
-    }
-  };
 
   const handleGeneratePlan = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -335,19 +316,7 @@ const App: React.FC = () => {
     setTimeout(() => { if (finalRef.current) downloadCard(finalRef, `${topic}_成品.png`); }, 1000);
   };
 
-  if (!hasApiKey) {
-    return (
-      <div className="min-h-screen bg-[#F9F5F0] flex flex-col items-center justify-center p-6 relative overflow-hidden">
-         <div className="fixed inset-0 opacity-30 bg-[radial-gradient(#D7CCC8_1.5px,transparent_1.5px)] bg-[length:20px_20px]"></div>
-         <div className="bg-white p-10 rounded-3xl shadow-[8px_8px_0px_#D7CCC8] max-w-md w-full text-center border-4 border-[#5D4037] relative z-10">
-            <h1 className="text-4xl mb-6 mt-4 font-bubbly-cn text-[#5D4037]">手帳製作所</h1>
-            <button onClick={handleConnectApiKey} className="w-full bg-[#5D4037] text-white font-hand-cn text-xl py-4 rounded-xl shadow-lg flex items-center justify-center gap-2">
-              <KeyIcon className="w-6 h-6" /> 連結 Google 帳號
-            </button>
-         </div>
-      </div>
-    );
-  }
+
 
   return (
     <div className="min-h-screen bg-[#F9F5F0] text-[#5D4037] font-sans pb-20 overflow-x-hidden">

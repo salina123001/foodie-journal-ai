@@ -5,6 +5,12 @@
 [build.environment]
   NODE_VERSION = "20"
 
+[build.processing]
+  skip_processing = false
+
+[context.production]
+  environment = { SECRETS_SCAN_OMIT_KEYS = "VITE_GEMINI_API_KEY" }
+
 # SPA routing: 所有路由導回 index.html
 [[redirects]]
   from = "/*"
